@@ -4,7 +4,7 @@
 \alias{usecode}
 \title{Import Highcharts Libraries}
 \usage{
-usecode(hcpaths = c("highcharts", "modules/accessibility"))
+usecode(...)
 }
 \arguments{
 \item{hcpaths}{Code files to import, minimally defined. For example, to import https://code.highcharts.com/highcharts.js you'd send "highcharts". To import https://code.highcharts.com/modules/accessibility.js you'd send "modules/accessibility".}
@@ -15,7 +15,13 @@ Import Highcharts Libraries
 \examples{
 \dontrun{
 ui = basicPage(
-  usecode()
+  usecode(
+    'highcharts',
+    'modules/exporting',
+    'modules/export-data',
+    'modules/accessibility'
+  ),
+
   uiOutput('testchart')
 )
 }

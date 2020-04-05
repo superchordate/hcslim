@@ -4,12 +4,14 @@
 \alias{hchtml}
 \title{Built HTML for Highchart.}
 \usage{
-hchtml(id, options)
+hchtml(id, options, class = c("chart", "mapChart", "stockChart", "ganttChart"))
 }
 \arguments{
 \item{id}{The HTML DOM id to use for the element and the output key to use. Must be HTML-compatible (no spaces).}
 
 \item{options}{Highcharts options for the chart. Includes data, chart type, etc.}
+
+\item{class}{"chart" in Highcharts.chart(... For Highmaps, it should be "mapChart".}
 }
 \value{
 HTML code for calling your chart.
