@@ -71,13 +71,19 @@ Highcharts.chart('container', {
 });
 ```
 
-To build this chart in a R Shiny app with hcslim in app.R:
+To build this chart in a R Shiny app with hcslim in your [app.R file](https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/):
 ```R
 require(shiny)
 require(hcslim)
 shinyApp(ui = basicPage(
 
-    hcslim::usecode(),
+    hcslim::usecode(
+        'highcharts',
+        'modules/exporting',
+        'modules/export-data',
+        'modules/accessibility'
+    ),
+    
     uiOutput('testchart')
 
   ),
