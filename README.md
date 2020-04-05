@@ -1,6 +1,6 @@
 # hcslim
 
-*Ultra-Slim Highcharts for R Shiny*
+*Slim Highcharts for R Shiny*
 
 Highcharter and htmlWidgets add many failure points between processing in R and plotting with Highcharts. 
 We provide minimal UI/HTML-based functions for creating plots in accordance with Highcharts documentation. 

@@ -1,6 +1,6 @@
 Package: hcslim
 Type: Package
-Title: Ultra-Slim Highcharts for R Shiny
+Title: Slim Highcharts for R Shiny
 Version: 0.1.0
 Author: Bryce Chamberlain <superchordate@gmail.com>
 Maintainer: Bryce Chamberlain <superchordate@gmail.com>
