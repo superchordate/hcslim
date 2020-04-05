@@ -11,7 +11,7 @@ Description: Highcharter and htmlWidgets add many failure points between process
     although it may make applications less stable.    
 License: What license is it under?
 Encoding: UTF-8
-License: GPL (>= 3)
+License: GPL (>= 2)
 LazyData: true
 URL: https://github.com/superchordate/hcslim
 BugReports: https://github.com/superchordate/hcslim/issues
