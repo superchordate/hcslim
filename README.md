@@ -77,13 +77,13 @@ require(shiny)
 require(hcslim)
 shinyApp(ui = basicPage(
 
-    usecode(),
+    hcslim::usecode(),
     uiOutput('testchart')
 
   ),
   server = function(input, output) {
 
-    output$testchart = renderUI({ hchtml( 'testchart', list(
+    output$testchart = renderUI({ hcslim::hchtml( 'testchart', list(
         chart = list(type = 'line'),
         title = list(text = 'Monthly Average Temperature'),
         subtitle = list(text = 'Source = WorldClimate.com'),
