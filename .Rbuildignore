@@ -1,2 +1,9 @@
-^.*\.Rproj$
-^\.Rproj\.user$
+^cran-comments\.md$
+^README\.Rmd$
+^\.github$
+^build-install-test\.R$
+^cmd-code-run-check\.txt$
+^hcslim_.+tar\.gz$
+^hcslim_.Rcheck$
+^LICENSE
+^cache$
