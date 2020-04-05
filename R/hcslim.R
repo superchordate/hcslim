@@ -7,13 +7,19 @@
 #' @examples
 #' \dontrun{
 #' ui = basicPage(
-#'   usecode()
+#'   usecode(
+#'     'highcharts',
+#'     'modules/exporting',
+#'     'modules/export-data',
+#'     'modules/accessibility'
+#'   ),
+#' 
 #'   uiOutput('testchart')
 #' )
 #' }
-usecode = function(hcpaths = c('highcharts', 'modules/accessibility')){
+usecode = function(...){
 
-  hcpaths = unique(hcpaths)
+  hcpaths = unique(unlist(list(...)))
   #hcpaths = setdiff(hcpaths, get('.loadedpaths', envir = .hcslimvars))
   #assign('.loadedpaths', c(get('.loadedpaths', envir = .hcslimvars), hcpaths), envir = .hcslimvars)
 
