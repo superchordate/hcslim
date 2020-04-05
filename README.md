@@ -7,6 +7,10 @@ We provide minimal UI/HTML-based functions for creating plots in accordance with
 This allows easier use of Highcharts documentation and forums.
 It also provides a direct download of the Highcharts code, so the latest stable Highcharts version will always be used, although it may make applications less stable.
 
+# Highcharts
+
+Highcharts requires a license for many uses. Get more information at https://www.highcharts.com.
+
 ## Installation
 
 Install the latest version from github:
