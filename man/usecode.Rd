@@ -7,13 +7,14 @@
 usecode(...)
 }
 \arguments{
-\item{hcpaths}{Code files to import, minimally defined. For example, to import https://code.highcharts.com/highcharts.js you'd send "highcharts". To import https://code.highcharts.com/modules/accessibility.js you'd send "modules/accessibility".}
+\item{...}{Code files to import, minimally defined. For example, to import https://code.highcharts.com/highcharts.js you'd send "highcharts". To import https://code.highcharts.com/modules/accessibility.js you'd send "modules/accessibility".}
 }
 \description{
 Import Highcharts Libraries
 }
 \examples{
 \dontrun{
+require(shiny)
 ui = basicPage(
   usecode(
     'highcharts',
@@ -21,7 +22,6 @@ ui = basicPage(
     'modules/export-data',
     'modules/accessibility'
   ),
-
   uiOutput('testchart')
 )
 }

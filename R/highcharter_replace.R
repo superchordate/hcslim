@@ -396,6 +396,7 @@ list_parse2 = function(x){
 
 # helper functions;
 hc_addoption = function(options, name, ...){
+  
   if(name %ni% names(options)) options[[name]] = list()
   
   # get object names from the function call.
