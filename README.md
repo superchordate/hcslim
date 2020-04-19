@@ -11,7 +11,7 @@ It also provides a direct download of the Highcharts code, so the latest stable 
 
 Highcharts may require a paid license. Special consideration is given for personal (non-commercial) use, schools, and non-profit organizations. Get more information at https://www.highcharts.com.
 
-## Installation
+# Installation
 
 Install the latest version from github:
 
@@ -19,9 +19,9 @@ Install the latest version from github:
 devtools::install_github( "superchordate/hcslim" )
 ```
 
-## Philosophy
+# Philosophy
 
-`hcslim` takes a **web-first approach**. 
+`hcslim` takes a **web-first approach**:
 
 Instead of pre-packaging all the HTML and JS in a widget, it provides tools for building out a website that can connect to these resources. This requires knowledge of web development. In fact, R Shiny developers need to know how the web works in order to be effective. [w3schools](https://www.w3schools.com/) is a great resource if you need to learn how websites work.
 
@@ -31,7 +31,7 @@ This approach has key benefits:
 * Simplifies design by removing unnecessary R-based abstractions.
 * Directly aligns with the highcharts documentation and forums. These are are fully mature, compared to Highcharter which has very little documentation or forum posts.
 
-## Usage
+# Usage
 
 Highcharts examples can be found at https://www.highcharts.com/demo. If you click through you will find JS Fiddle examples that contain everything you need to build a chart, including JS libraries. Once you find one of these, it can be replicated easily in `hcslim`.
 
@@ -142,7 +142,29 @@ shinyApp(ui = basicPage(
 
 # Special Notes
 
-You need to make sure you follow examples to get the right JS libraries included.
+**Common Errors**
+
+You need to make sure you follow the JS Fiddles examples to get the right JS libraries included. Watch the web-browser console for helpful error messages from Highcharts.
+
+**Converting Highcharter-based apps**
+
+While it is smart to start new apps using the format above, it may be very difficult to convert existing apps. For this reason, functions have been included to make switching from Highcharter easier. To use these, just replace Highcharter with hcslim in your code. Most functions have been replaced such that they will directly work, **except for renderHighchart()**. Where as before you would have used:
+
+```R
+renderHighchart({
+    # code to build chart here (including series data).
+})
+```
+
+You now need to give the chart id folowed by a function that builds the options list, similar to:
+
+```R
+renderHighchart('mychart', function(){
+    # code to build options here (including series data).
+})
+```
+
+**markjs**
 
 When converting your options to JSON, `hcslim` needs to know what parts are Javascript, otherwise it'll surround your javascript with quotes and it won't run. 
 
