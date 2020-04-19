@@ -328,14 +328,21 @@ hc_add_series_list = function(options, listofseries){
 #' Added to make code written with Highcharter work with hcslim.
 #'
 #' @param id The HTML DOM id to use for the element and the output key to use. Must be HTML-compatible (no spaces).
-#' @param options Highcharts options for the chart. Includes data, chart type, etc.
+#' @param options Function that builds Highcharts options for the chart.
 #' @param class "chart" in Highcharts.chart(... For Highmaps, it should be "mapChart".
 #' @param prettyjs Use pretty formatting when converting options to JSON.
 #'
 #' @return Render object
 #' @export
 #'
+#' @examples
+#' \dontrun{
+#'  renderHighchart('mychart', function(){
+#'    # code to build options here (including series data).
+#'  })
+#' }
 renderHighchart = function(id, options, class='chart', prettyjs=FALSE) renderUI({ 
+  if(class(id) != 'character') stop('renderHighchart works a bit differently in hcslim. See ?renderHighchart')
   return(hchtml(id=id, options=options(), class=class, prettyjs=prettyjs))
 })
 
