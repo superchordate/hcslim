@@ -7,10 +7,10 @@ We provide minimal UI/HTML-based functions for creating plots in accordance with
 This allows easier use of Highcharts documentation and forums.
 It also provides a direct download of the Highcharts code, so the latest stable Highcharts version will always be used, although it may make applications less stable.
 
-* [Highcharts](#highcharts
+* [Highcharts](#highcharts)
 * [Installation](#installation)
 * [Philosophy](#philosophy)
-* [Contributions])(#contributions)
+* [Contributions](#contributions)
 * [Usage](#usage)
 * [Special Notes](#special-notes)
 
