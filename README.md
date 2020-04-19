@@ -7,11 +7,18 @@ We provide minimal UI/HTML-based functions for creating plots in accordance with
 This allows easier use of Highcharts documentation and forums.
 It also provides a direct download of the Highcharts code, so the latest stable Highcharts version will always be used, although it may make applications less stable.
 
-# Highcharts
+* [Highcharts](#highcharts
+* [Installation](#installation)
+* [Philosophy](#philosophy)
+* [Contributions])(#contributions)
+* [Usage](#usage)
+* [Special Notes](#special-notes)
+
+## Highcharts
 
 Highcharts may require a paid license. Special consideration is given for personal (non-commercial) use, schools, and non-profit organizations. Get more information at https://www.highcharts.com.
 
-# Installation
+## Installation
 
 Install the latest version from github:
 
@@ -19,7 +26,7 @@ Install the latest version from github:
 devtools::install_github( "superchordate/hcslim" )
 ```
 
-# Philosophy
+## Philosophy
 
 `hcslim` takes a **web-first approach**:
 
@@ -31,7 +38,11 @@ This approach has key benefits:
 * Simplifies design by removing unnecessary R-based abstractions.
 * Directly aligns with the highcharts documentation and forums. These are are fully mature, compared to Highcharter which has very little documentation or forum posts.
 
-# Usage
+## Contributions
+
+`hcslim` is very new and coverage isn't great. In particular, we need functions to make transforming data easier for lists and for treemaps. Please consider making a Pull Request if you end up writing code like this.
+
+## Usage
 
 Highcharts examples can be found at https://www.highcharts.com/demo. If you click through you will find JS Fiddle examples that contain everything you need to build a chart, including JS libraries. Once you find one of these, it can be replicated easily in `hcslim`.
 
@@ -140,7 +151,7 @@ shinyApp(ui = basicPage(
 })
 ```
 
-# Special Notes
+## Special Notes
 
 **Common Errors**
 
