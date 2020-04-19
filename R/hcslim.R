@@ -37,6 +37,7 @@ usecode = function(...){
 #' @param id The HTML DOM id to use for the element and the output key to use. Must be HTML-compatible (no spaces).
 #' @param options Highcharts options for the chart. Includes data, chart type, etc.
 #' @param class "chart" in Highcharts.chart(... For Highmaps, it should be "mapChart".
+#' @param prettyjs Use pretty formatting when converting options to JSON.
 #'
 #' @return HTML code for calling your chart.
 #' @export
@@ -74,7 +75,14 @@ usecode = function(...){
 #'
 #' }
 #' }
-hchtml = function(id, options, class = c('chart', 'mapChart', 'stockChart', 'ganttChart')){
+hchtml = function(id, options, class = c('chart', 'mapChart', 'stockChart', 'ganttChart'), prettyjs=FALSE){
+
   .checkid(id)
-  shiny::tags$script(glue::glue("Highcharts.{class}('{id}', {jsonlite::toJSON(options)});"))
+  
+  json = jsonlite::toJSON(options, auto_unbox=TRUE, prettyjs=pretty, force=TRUE)
+  json = gsub('"JS!([^!]+)!"', '\\1', json)
+
+  shiny::tags$script(glue::glue("Highcharts.{class}('{id}', {json});"))
 }
+
+markjs = function(string) glue('JS!{string}!')
