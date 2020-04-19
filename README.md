@@ -142,6 +142,8 @@ shinyApp(ui = basicPage(
 
 # Special Notes
 
+You need to make sure you follow examples to get the right JS libraries included.
+
 When converting your options to JSON, `hcslim` needs to know what parts are Javascript, otherwise it'll surround your javascript with quotes and it won't run. 
 
 This is where the markjs function comes in. Using https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/xaxis/labels-formatter-extended/:
