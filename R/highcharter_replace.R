@@ -375,6 +375,7 @@ highchartOutput = function(id, height = NULL, width = NULL){
 #' @export
 #'
 list_parse = function(x){
+  if(nrow(x)==0) return(list())
   ilist = list()
   for(i in 1:nrow(x)){
     ilist[[i]] = list()
@@ -393,6 +394,7 @@ list_parse = function(x){
 #' @export
 #'
 list_parse2 = function(x){
+  if(nrow(x)==0) return(list())
   ilist = list()
   for(i in 1:nrow(x)){
     ilist[[i]] = list()
