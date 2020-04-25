@@ -92,7 +92,7 @@ hchtml = function(id, options, class=c('chart', 'mapChart', 'stockChart', 'gantt
   json = gsub('"NA"', 'null', json)
   json = gsub('\\', '', json, fixed = TRUE)
   
-  return(shiny::tags$script(glue::glue("Highcharts.{class}('{id}', {json});")))
+  return(shiny::tags$script(HTML(glue::glue("Highcharts.{class}('{id}', {json});"))))
   
 }
 
