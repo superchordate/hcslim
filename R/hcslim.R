@@ -89,7 +89,7 @@ hchtml = function(id, options, class=c('chart', 'mapChart', 'stockChart', 'gantt
   json = jsonlite::toJSON(options, auto_unbox=TRUE, pretty=pretty, force=TRUE)
   
   json = gsub('"JS!([^!]+)!"', '\\1', json)
-  json = gsub('"NA"', 'null', json)
+  json = gsub('"(NA|Inf|-Inf)"', 'null', json)
   json = gsub('\\', '', json, fixed = TRUE)
   
   return(shiny::tags$script(HTML(glue::glue("Highcharts.{class}('{id}', {json});"))))
