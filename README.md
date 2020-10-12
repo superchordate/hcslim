@@ -165,6 +165,7 @@ If there are no Highcharts errors, but you do see unclear errors, it might be a 
 Common errors:
 
 * Not marking JavaScript code with `markjs()`.
+* `invalid escape sequence`: when using markjs, open/close your characters with " instead of '. If you have " inside a markjs argment you might get this Javascript error. I'll try to fix this in a later version.*
 * Not having the JS files you need. Pay attention to JSFiddle examples to see what JS files they import and either include these in your project or add them with `usefules()`, in the correct order. Order is really important with Highcharts code modules.
 * If you are using actual .js files instead of `usecode()` your files may need to be in a folder structure that matches JSFiddles. For example, if the JS fiddle reference is https://code.highcharts.com/modules/exporting.js then you need to save this file into the modules folder relative to the location of highcharts.js.
 
@@ -191,6 +192,8 @@ renderHighchart('mychart', function(){
 When converting your options to JSON, `hcslim` needs to know what parts are Javascript, otherwise it'll surround your javascript with quotes and it won't run. 
 
 This is where the markjs function comes in. Using https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/xaxis/labels-formatter-extended/:
+
+*When using markjs, open/close your characters with " instead of '. If you have " inside a markjs argment you might get the Javascript error `invalid escape sequence`. I'll try to fix this in a later version.*
 
 ```html
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
