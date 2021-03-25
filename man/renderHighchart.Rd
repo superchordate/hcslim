@@ -9,7 +9,7 @@ renderHighchart(id, options, class = "chart", prettyjs = FALSE)
 \arguments{
 \item{id}{The HTML DOM id to use for the element and the output key to use. Must be HTML-compatible (no spaces).}
 
-\item{options}{Highcharts options for the chart. Includes data, chart type, etc.}
+\item{options}{Function that builds Highcharts options for the chart.}
 
 \item{class}{"chart" in Highcharts.chart(... For Highmaps, it should be "mapChart".}
 
@@ -20,4 +20,11 @@ Render object
 }
 \description{
 Added to make code written with Highcharter work with hcslim.
+}
+\examples{
+\dontrun{
+ renderHighchart('mychart', function(){
+   # code to build options here (including series data).
+ })
+}
 }
