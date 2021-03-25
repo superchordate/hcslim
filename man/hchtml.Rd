@@ -8,7 +8,8 @@ hchtml(
   id,
   options,
   class = c("chart", "mapChart", "stockChart", "ganttChart"),
-  prettyjs = FALSE
+  pretty = FALSE,
+  printjs = FALSE
 )
 }
 \arguments{
@@ -18,7 +19,7 @@ hchtml(
 
 \item{class}{"chart" in Highcharts.chart(... For Highmaps, it should be "mapChart".}
 
-\item{prettyjs}{Use pretty formatting when converting options to JSON.}
+\item{pretty}{Use pretty formatting when converting options to JSON.}
 }
 \value{
 HTML code for calling your chart.

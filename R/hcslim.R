@@ -80,17 +80,22 @@ usecode = function(...){
 #' })
 #' }
 #' }
-hchtml = function(id, options, class=c('chart', 'mapChart', 'stockChart', 'ganttChart'), pretty=FALSE){
+hchtml = function(
+  id, options, class=c('chart', 'mapChart', 'stockChart', 'ganttChart'), pretty = FALSE,
+  printjs = FALSE
+){
   
   class = match.arg(class)
   
   .checkid(id)
   
-  json = jsonlite::toJSON(options, auto_unbox=TRUE, pretty=pretty, force=TRUE)
+  json = jsonlite::toJSON(options, auto_unbox=TRUE, pretty=pretty || printjs, force=TRUE)
   
   json = gsub('"JS!([^!]+)!"', '\\1', json)
   json = gsub('"(NA|Inf|-Inf|NaN)"', 'null', json)
   json = gsub('\\', '', json, fixed = TRUE)
+
+  if(printjs) print(json)
   
   return(shiny::tags$script(HTML(glue::glue("Highcharts.{class}('{id}', {json});"))))
   
