@@ -12,7 +12,8 @@ It also provides a direct download of the Highcharts code, so the latest stable 
 * [Philosophy](#philosophy)
 * [Contributions](#contributions)
 * [Usage](#usage)
-* [Special Notes](#special-notes)
+* [Troubleshooting](#troubleshooting)
+* [Converting Highcharter-based Apps](#converting-highcharter-based-apps)
 
 ## Highcharts
 
@@ -151,13 +152,24 @@ shinyApp(ui = basicPage(
 })
 ```
 
-## Special Notes
+## Troubleshooting
 
-**Common Errors**
+If there are no R errors and the charts aren't showing, use the browser JavaScript console to check for JavaScript errors. Sometimes there will be Highcharts errors that will give you a hint as to what is wrong.
 
-You need to make sure you follow the JS Fiddles examples to get the right JS libraries included. Watch the web-browser console for helpful error messages from Highcharts.
+If there are no Highcharts errors, but you do see unclear errors, it might be a JavaScript syntax issue in the code output by hcslim. Use the `printjson = TRUE` argument for `hchtml` or `renderHighcharts` to print the output JSON data for your chart to the R console. 
 
-**Converting Highcharter-based apps**
+* You can paste this into a JS Fiddle example for the chart type you are working with.
+* For example, if it's a treemap then I google `highcharts jsfiddle treemap`, access the fiddle, and replace the options object `{type: "treemap", ...}` with the console output. Then tweak the options to find out what fixes the chart.
+* If you are familiar with JavaScript , you can probably find the issue by visually scanning the output.
+
+Common errors:
+
+* Not marking JavaScript code with `markjs()`.
+* `invalid escape sequence`: when using markjs, open/close your characters with " instead of '. If you have " inside a markjs argment you might get this Javascript error. I'll try to fix this in a later version.*
+* Not having the JS files you need. Pay attention to JSFiddle examples to see what JS files they import and either include these in your project or add them with `usefules()`, in the correct order. Order is really important with Highcharts code modules.
+* If you are using actual .js files instead of `usecode()` your files may need to be in a folder structure that matches JSFiddles. For example, if the JS fiddle reference is https://code.highcharts.com/modules/exporting.js then you need to save this file into the modules folder relative to the location of highcharts.js.
+
+## Converting Highcharter-based Apps
 
 While it is smart to start new apps using the format above, it may be very difficult to convert existing apps. For this reason, functions have been included to make switching from Highcharter easier. To use these, just replace Highcharter with hcslim in your code. Most functions have been replaced such that they will directly work, **except for renderHighchart()**. Where as before you would have used:
 
@@ -167,7 +179,7 @@ renderHighchart({
 })
 ```
 
-You now need to give the chart id folowed by a function that builds the options list, similar to:
+You now need to give the chart id followed by a function that builds the options list, similar to:
 
 ```R
 renderHighchart('mychart', function(){
@@ -180,6 +192,8 @@ renderHighchart('mychart', function(){
 When converting your options to JSON, `hcslim` needs to know what parts are Javascript, otherwise it'll surround your javascript with quotes and it won't run. 
 
 This is where the markjs function comes in. Using https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/xaxis/labels-formatter-extended/:
+
+*When using markjs, open/close your characters with " instead of '. If you have " inside a markjs argment you might get the Javascript error `invalid escape sequence`. I'll try to fix this in a later version.*
 
 ```html
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
