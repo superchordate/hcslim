@@ -15,6 +15,7 @@ LazyData: true
 URL: https://github.com/superchordate/hcslim
 BugReports: https://github.com/superchordate/hcslim/issues
 Imports:
+  htmltools,
   glue,
   jsonlite,
   shiny

@@ -97,7 +97,7 @@ hchtml = function(
 
   if(printjs) print(json)
   
-  return(shiny::tags$script(HTML(glue::glue("Highcharts.{class}('{id}', {json});"))))
+  return(shiny::tags$script(htmltools::HTML(glue::glue("Highcharts.{class}('{id}', {json});"))))
   
 }
 
