@@ -111,8 +111,8 @@ hchtml = function(
   json = gsub('"(NA|-Inf|Inf)"', 'null', json)
 
   # Highcharts needs vectors, change single numbers to vectors.
-  json = gsub('categories": ?([^[,}]+)', 'categories": [\\1]', json)
-  json = gsub('data": ?([^[,}]+)', 'data": [\\1]', json)
+  json = gsub('categories": ?([^[,} ]+)', 'categories": [\\1]', json)
+  json = gsub('data": ?([^[,} ]+)', 'data": [\\1]', json)
 
   # compile final Highcharts JS call.
   # option to print completed JS to console for troubleshooting or pasting into jsFiddle.
