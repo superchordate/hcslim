@@ -45,7 +45,7 @@ hcslim_view = function(
     usecode_include = 'highcharts',
     class = c('chart', 'mapChart', 'stockChart', 'ganttChart'),
     printjs = FALSE, 
-    pretty = !printjs,
+    pretty = printjs,
     printtempfile = FALSE
 ){
   

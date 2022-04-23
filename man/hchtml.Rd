@@ -9,7 +9,7 @@ hchtml(
   options,
   class = c("chart", "mapChart", "stockChart", "ganttChart"),
   printjs = FALSE,
-  pretty = !printjs
+  pretty = printjs
 )
 }
 \arguments{

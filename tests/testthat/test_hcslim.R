@@ -96,6 +96,6 @@ expect_equal(
         ))
     )
     expect_equal(
-      as.character(hchtml('testchart', options)),
+      as.character(hchtml('testchart', options, pretty = TRUE)),
       "<script>Highcharts.chart('testchart', {\n  \"chart\": {\n    \"type\": \"column\"\n  },\n  \"title\": {\n    \"text\": \"iris\"\n  },\n  \"xAxis\": {\n    \"categories\": [\"setosa\", \"versicolor\", \"virginica\"],\n    \"title\": {\n      \"text\": \"Species\"\n    }\n  },\n  \"yAxis\": {\n    \"title\": {\n      \"text\": \"Sepal.Length\"\n    }\n  },\n  \"series\": [\n    {\n      \"name\": \"Mean Sepal.Length\",\n      \"data\": [5.006, 5.936, 6.588]\n    }\n  ]\n});</script>"
     )
