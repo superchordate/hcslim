@@ -1,52 +1,40 @@
 require(shiny)
 require(hcslim)
 
-shinyApp(ui = basicPage(
-
-    hcslim::usecode(
-        'highcharts',
-        'modules/exporting',
-        'modules/export-data',
-        'modules/accessibility',
-        'modules/boost'
-    ),
-    
-    uiOutput('testchart')
-
+shinyApp(
+  
+  ui = basicPage(
+    usecode('highcharts'),    
+    uiOutput('mychart')
   ),
+
   server = function(input, output) {
 
-    output$testchart = renderUI({ 
+    output$mychart = renderUI({ 
       
-      x1 = round(runif(10)*10,1)
-      x2 = round(runif(10)*10,1)
-      
-      return(hchtml( 'testchart', list(
+      return(hchtml('mychart', list(
+
         chart = list(type = 'line'),
-        title = list(text = 'Random Numbers'),
-        xAxis = list(
-            categories = c('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
-        ),
+        title = list(text = 'Some Numbers'),
         yAxis = list(
-            title= list(
-                text = 'Temperature (°C)'
+            title = list(
+                text = '123456'
             )
-        ),
-        plotOptions = list(
-            line = list(dataLabels = list(enabled = TRUE), enableMouseTracking = FALSE)
         ),
         series = list(
           list(
-            name = 'Tokyo',
-            data = x1
+            name = '123',
+            data = c(1, 2, 3)
           ),
           list(
-            name = 'London',
-            data = x2
+            name = '456',
+            data = c(4, 5, 6)
           )
         )
+        
       )))
       
     })
 
 })
+
