@@ -81,24 +81,36 @@ usecode = function(...){
 #' }
 #' }
 hchtml = function(
-  id, options, class=c('chart', 'mapChart', 'stockChart', 'ganttChart'), pretty = FALSE,
-  printjs = FALSE
+  id, 
+  options, 
+  class = c('chart', 'mapChart', 'stockChart', 'ganttChart'),
+  printjs = FALSE, 
+  pretty = !printjs
 ){
   
+  # validate inputs.
   class = match.arg(class)
-  
   .checkid(id)
-  
-  json = jsonlite::toJSON(options, auto_unbox=TRUE, pretty=pretty || printjs, force=TRUE)
-  
-  json = gsub('"JS!([^!]+)!"', '\\1', json)
-  json = gsub('"(NA|Inf|-Inf|NaN)"', 'null', json)
-  json = gsub('\\', '', json, fixed = TRUE)
 
-  if(printjs) print(json)
+  # initial conversion to JSON.
+  json = jsonlite::toJSON(options, auto_unbox = TRUE, pretty = pretty, force = TRUE)
   
-  return(shiny::tags$script(HTML(glue::glue("Highcharts.{class}('{id}', {json});"))))
+  # format markjs code as raw JS.
+  json = gsub('"JS!([^!]+)!"', '\\1', json)
+
+  # replace bad values with null.
+  json = gsub('"(NA|-Inf|Inf)"', 'null', json)
+
+  # Highcharts needs vectors, change single numbers to vectors.
+  json = gsub('data": ?([0-9.]+),', 'data": [\\1],', json)
+
+  # compile final Highcharts JS call.
+  # option to print completed JS to console for troubleshooting or pasting into jsFiddle.
+  js = glue::glue("Highcharts.{class}('{id}', {json});")
+  if(js) print(js)
   
+  return(shiny::tags$script(HTML(js)))
+
 }
 
 #' Mark JS
