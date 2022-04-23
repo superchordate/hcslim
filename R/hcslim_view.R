@@ -49,7 +49,6 @@ hcslim_view = function(
   
   # get a temp file and use it to build a div id.
   tempfile = tempfile(fileext = ".html")
-  print(tempfile)
   id = gsub('[.]html', '', gsub('.+\\\\', '', tempfile))
   
   # build the chart from options, and the module import.
