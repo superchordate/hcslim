@@ -303,7 +303,7 @@ hc_subtitle = function(options, ...){ hc_addoption(options, "subtitle", ...) }
 #' @export
 #'
 hc_add_series = function(options, ...){
-  if('series' %ni% names(options)) options$series = list()  
+  if(!('series' %in% names(options))) options$series = list()  
   options$series[[length(options$series) + 1]] =  list(...)
   return(options)
 }
@@ -406,7 +406,7 @@ list_parse2 = function(x){
 # helper functions;
 hc_addoption = function(options, name, ...){
   
-  if(name %ni% names(options)) options[[name]] = list()
+  if(!(name %in% names(options))) options[[name]] = list()
   
   # get object names from the function call.
   datalist = list(...)
@@ -421,7 +421,7 @@ hc_addoption = function(options, name, ...){
   
 }
 hc_addseries = function(options, series){  
-  if('series' %ni% names(options)) options$series = list()  
+  if(!('series' %in% names(options))) options$series = list()  
   options$series[[length(options$series) + 1]] =  series
   return(options)
 }

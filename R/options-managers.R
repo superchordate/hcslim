@@ -13,7 +13,7 @@
 update = function(options, option, ...){
   
   # add the first-level option if it doesn't exist yet.
-  if(option %ni% names(options)) options[[option]] = list()
+  if(!(option %in% names(options))) options[[option]] = list()
   
   # get the new options.
   datalist = list(...)

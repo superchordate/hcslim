@@ -22,7 +22,7 @@ addgroupedseries = function(options, data, groupcol, xcol, ycol){
         hcslim::addgroupedseries Warning W513.
       ')
 
-      for(icol in c(groupcol, xcol, ycol)) if(icol %ni% names(data)) stop(glue('
+      for(icol in c(groupcol, xcol, ycol)) if(!(icol %in% names(data))) stop(glue('
         Column [{icol}] was not found in the data. 
         hcslim::addgroupedseries Error 514.
       '))
