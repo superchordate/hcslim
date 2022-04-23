@@ -107,9 +107,9 @@ hchtml = function(
   # compile final Highcharts JS call.
   # option to print completed JS to console for troubleshooting or pasting into jsFiddle.
   js = glue::glue("Highcharts.{class}('{id}', {json});")
-  if(js) print(js)
+  if(printjs) print(js)
   
-  return(shiny::tags$script(HTML(js)))
+  return(htmltools::HTML(as.character(glue::glue('<script>{js}</script>'))))
 
 }
 
@@ -124,5 +124,5 @@ hchtml = function(
 #'
 #' @examples
 markjs = function(string){
-  return(glue::glue('JS!{string}!'))
+  return(as.character(glue::glue('JS!{string}!')))
 }

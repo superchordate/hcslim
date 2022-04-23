@@ -17,8 +17,7 @@ BugReports: https://github.com/superchordate/hcslim/issues
 Imports:
   htmltools,
   glue,
-  jsonlite,
-  shiny
+  jsonlite
 RoxygenNote: 7.1.1
 Suggests: 
     testthat (>= 3.0.0)
