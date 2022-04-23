@@ -10,12 +10,12 @@ options = list(
   ),
   series = list(
       list(
-      name = '123',
-      data = c(1, 2, 3)
+        name = '123',
+        data = c(1, 2, 3)
       ),
       list(
-      name = '456',
-      data = c(4, 5, 6)
+        name = '456',
+        data = c(4, 5, 6)
       )
   )
 )

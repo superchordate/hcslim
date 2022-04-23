@@ -24,7 +24,7 @@ hcslim_view(
 \item{pretty}{Use pretty formatting when converting options to JSON.}
 }
 \value{
-Creates a temp HTML file and shows it in the browser.
+Creates a temp HTML file and shows it in the viewer.
 }
 \description{
 Allows viewing of hcslim output in RStudio.
@@ -44,12 +44,12 @@ options = list(
  ),
  series = list(
      list(
-     name = '123',
-     data = c(1, 2, 3)
+       name = '123',
+       data = c(1, 2, 3)
      ),
      list(
-     name = '456',
-     data = c(4, 5, 6)
+       name = '456',
+       data = c(4, 5, 6)
      )
  )
 )

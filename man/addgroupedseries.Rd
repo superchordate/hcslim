@@ -21,5 +21,5 @@ addgroupedseries(options, data, groupcol, xcol, ycol)
 options list with series' added.
 }
 \description{
-Added to make code written with Highcharter work with hcslim.
+Seperating data into series is a very common operation. This function takes your grouped data and adds the series'.
 }
