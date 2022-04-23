@@ -8,7 +8,7 @@
 #' @param printjs Print completed JS to console for troubleshooting or pasting into jsFiddle.
 #' @param pretty Use pretty formatting when converting options to JSON.
 #'
-#' @return Creates a temp HTML file and shows it in the browser. 
+#' @return Creates a temp HTML file and shows it in the viewer. 
 #' @export
 #'
 #' @examples
