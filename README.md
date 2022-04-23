@@ -152,6 +152,15 @@ shinyApp(ui = basicPage(
 })
 ```
 
+You'll need to write code to build out the series. You can use list_parse to bring in extra point properties. 
+
+These helpful functions also exist:
+
+| Function | Description |
+| ----------- | ----------- |
+| hcslim_view | Show a chart in the viewer pan in RStudio. |
+| addgroupedseries | Seperating data into series is a very common operation. This function takes your grouped data and adds the series'. |
+
 ## Troubleshooting
 
 If there are no R errors and the charts aren't showing, use the browser JavaScript console to check for JavaScript errors. Sometimes there will be Highcharts errors that will give you a hint as to what is wrong.

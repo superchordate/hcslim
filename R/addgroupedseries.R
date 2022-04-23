@@ -1,7 +1,7 @@
 
 #' Add grouped series. 
 #' 
-#' Added to make code written with Highcharter work with hcslim.
+#' Seperating data into series is a very common operation. This function takes your grouped data and adds the series'.
 #'
 #' @param options Highcharts options for the chart. Includes data, chart type, etc.
 #' @param data data.frame-like object containing the underlying data. It must already be grouped and summarized. 
