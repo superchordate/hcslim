@@ -25,7 +25,9 @@ usecode = function(...){
 
   lapply(
     hcpaths,
-    function(module) shiny::tags$script(src=glue::glue('https://code.highcharts.com/{module}.js'))
+    function(module) htmltools::HTML(as.character(
+      glue::glue('<script src="https://code.highcharts.com/{module}.js"></script>')
+    ))
   )
 
 }

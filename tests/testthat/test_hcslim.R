@@ -28,3 +28,9 @@ expect_equal(
     c('html', 'character')
 )
 
+# test that expect_equal runs.
+expect_equal(
+    class(usecode('highcharts')[[1]]),
+    c('html', 'character')
+)
+
