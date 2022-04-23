@@ -8,8 +8,8 @@ hchtml(
   id,
   options,
   class = c("chart", "mapChart", "stockChart", "ganttChart"),
-  pretty = FALSE,
-  printjs = FALSE
+  printjs = FALSE,
+  pretty = !printjs
 )
 }
 \arguments{
@@ -44,7 +44,7 @@ server = function(input, output) {
     ),
     yAxis = list(
       title= list(
-        text = 'Temperature (Â°C)'
+        text = 'Temperature (°C)'
       )
     ),
     plotOptions = list(
