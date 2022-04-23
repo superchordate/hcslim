@@ -1,4 +1,17 @@
 
+#' Add grouped series. 
+#' 
+#' Added to make code written with Highcharter work with hcslim.
+#'
+#' @param options Highcharts options for the chart. Includes data, chart type, etc.
+#' @param data data.frame-like object containing the underlying data. It must already be grouped and summarized. 
+#' @param groupcol Name of the column that will be used to split the data into series. These groups will show in the legend. 
+#' @param xcol Name of the column to be used as the X value.
+#' @param ycol Name of the column to be used as the Y value.
+#'
+#' @return options list with series' added. 
+#' @export
+#'
 addgroupedseries = function(options, data, groupcol, xcol, ycol){
 
     # validation.
