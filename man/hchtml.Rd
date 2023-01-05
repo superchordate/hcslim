@@ -8,6 +8,7 @@ hchtml(
   id,
   options,
   class = c("chart", "mapChart", "stockChart", "ganttChart"),
+  loadmapfromurl = NULL,
   printjs = FALSE,
   pretty = printjs
 )
@@ -18,6 +19,8 @@ hchtml(
 \item{options}{Highcharts options for the chart. Includes data, chart type, etc.}
 
 \item{class}{"chart" in Highcharts.chart(... For Highmaps, it should be "mapChart".}
+
+\item{loadmapfromurl}{If you are using a map, this is the URL of the topo.json file. Example: 'https://code.highcharts.com/mapdata/countries/us/us-ca-all.topo.json'}
 
 \item{printjs}{Print completed JS to console for troubleshooting or pasting into jsFiddle.}
 

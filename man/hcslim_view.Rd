@@ -6,23 +6,27 @@
 \usage{
 hcslim_view(
   options,
-  usecode_include = "highcharts",
   class = c("chart", "mapChart", "stockChart", "ganttChart"),
-  printjs = FALSE,
+  usecode_include = ifelse(class[1] == "mapChart", "maps/highmaps", "highcharts"),
+  loadmapfromurl = NULL,
   pretty = printjs,
-  printtempfile = FALSE
+  printjs = FALSE,
+  printtempfile = FALSE,
+  printhtml = FALSE
 )
 }
 \arguments{
 \item{options}{Highcharts options for the chart. Includes data, chart type, etc.}
 
-\item{usecode_include}{Required Highcharts modules that you'd pass to hcslim::usecode().}
-
 \item{class}{"chart" in Highcharts.chart(... For Highmaps, it should be "mapChart".}
 
-\item{printjs}{Print completed JS to console for troubleshooting or pasting into jsFiddle.}
+\item{usecode_include}{Required Highcharts modules that you'd pass to hcslim::usecode().}
+
+\item{loadmapfromurl}{If you are using a map, this is the URL of the topo.json file. Example: 'https://code.highcharts.com/mapdata/countries/us/us-ca-all.topo.json'}
 
 \item{pretty}{Use pretty formatting when converting options to JSON.}
+
+\item{printjs}{Print completed JS to console for troubleshooting or pasting into jsFiddle.}
 }
 \value{
 Creates a temp HTML file and shows it in the viewer.

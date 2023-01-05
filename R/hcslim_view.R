@@ -3,11 +3,13 @@
 #' Allows viewing of hcslim output in RStudio. 
 #'
 #' @param options Highcharts options for the chart. Includes data, chart type, etc.
-#' @param usecode_include Required Highcharts modules that you'd pass to hcslim::usecode().
 #' @param class "chart" in Highcharts.chart(... For Highmaps, it should be "mapChart".
-#' @param printjs Print completed JS to console for troubleshooting or pasting into jsFiddle.
+#' @param usecode_include Required Highcharts modules that you'd pass to hcslim::usecode().
+#' @param loadmapfromurl If you are using a map, this is the URL of the topo.json file. Example: 'https://code.highcharts.com/mapdata/countries/us/us-ca-all.topo.json'
 #' @param pretty Use pretty formatting when converting options to JSON.
-#' @printtempfile Print the location of the temporary HTML file. Useful for troubleshooting.
+#' @param printjs Print completed JS to console for troubleshooting or pasting into jsFiddle.
+#' @printtempfile Print the location of the temporary HTML file (helpful for troubleshooting).
+#' @printhtml Print the HTML code used for Viewer (helpful for troubleshooting).
 #'
 #' @return Creates a temp HTML file and shows it in the viewer. 
 #' @export
@@ -41,12 +43,18 @@
 #'
 #' }
 hcslim_view = function(
+    
     options, 
-    usecode_include = 'highcharts',
     class = c('chart', 'mapChart', 'stockChart', 'ganttChart'),
-    printjs = FALSE, 
+    usecode_include = ifelse(class[1] == 'mapChart', 'maps/highmaps', 'highcharts'),
+    loadmapfromurl = NULL,
     pretty = printjs,
-    printtempfile = FALSE
+
+    # debug options: 
+    printjs = FALSE, 
+    printtempfile = FALSE,
+    printhtml = FALSE
+
 ){
   
   # get a temp file and use it to build a div id.
@@ -55,14 +63,24 @@ hcslim_view = function(
   id = gsub('[.]html', '', gsub('.+\\\\', '', tempfile))
   
   # build the chart from options, and the module import.
-  toview = unlist(list(
+  toview = list(
     usecode(usecode_include),
-    hchtml(id = id, options = options, class = class, printjs = printjs, pretty = pretty)
-  ))
+    hchtml(
+      id = id, 
+      options = options, 
+      class = class, 
+      loadmapfromurl = loadmapfromurl,
+      printjs = printjs, 
+      pretty = pretty
+    )
+  )
+  toview = unlist(toview)
   
   # write the temporary file.
-  fileConn= file(tempfile)
-  writeLines(c(glue::glue('<div id="{id}"></div>'), toview), fileConn)
+  fileConn = file(tempfile)
+  html = c(glue::glue('<div id="{id}"></div>'), toview)
+  if(printhtml) print(html)
+  writeLines(html, fileConn)
   close(fileConn)
   
   # open the viewer.

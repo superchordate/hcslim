@@ -39,6 +39,7 @@ usecode = function(...){
 #' @param id The HTML DOM id to use for the element and the output key to use. Must be HTML-compatible (no spaces).
 #' @param options Highcharts options for the chart. Includes data, chart type, etc.
 #' @param class "chart" in Highcharts.chart(... For Highmaps, it should be "mapChart".
+#' @param loadmapfromurl If you are using a map, this is the URL of the topo.json file. Example: 'https://code.highcharts.com/mapdata/countries/us/us-ca-all.topo.json'
 #' @param printjs Print completed JS to console for troubleshooting or pasting into jsFiddle.
 #' @param pretty Use pretty formatting when converting options to JSON.
 #'
@@ -93,6 +94,7 @@ hchtml = function(
   id, 
   options, 
   class = c('chart', 'mapChart', 'stockChart', 'ganttChart'),
+  loadmapfromurl = NULL,
   printjs = FALSE, 
   pretty = printjs
 ){
@@ -116,10 +118,20 @@ hchtml = function(
 
   # compile final Highcharts JS call.
   # option to print completed JS to console for troubleshooting or pasting into jsFiddle.
-  js = glue::glue("Highcharts.{class}('{id}', {json});")
+  # add map download if necessary https://www.highcharts.com/docs/maps/map-collection
+  if(!is.null(loadmapfromurl)){
+    js = glue::glue('
+      const topology = await fetch("{loadmapfromurl}").then(response => response.json()); 
+      Highcharts.{class}("{id}", {json});
+    ')
+    html = glue::glue('<script>(async () => {{{js}}})();</script>')
+  } else {
+    js = glue::glue("Highcharts.{class}('{id}', {json});")
+    html = glue::glue('<script>{js}</script>')
+  }
   if(printjs) print(js)
   
-  return(htmltools::HTML(as.character(glue::glue('<script>{js}</script>'))))
+  return(htmltools::HTML(as.character(html)))
 
 }
 
