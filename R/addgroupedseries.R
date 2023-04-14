@@ -33,20 +33,22 @@ addgroupedseries = function(options, data, groupcol, xcol, ycol){
     data$group = data[[groupcol]]
 
     # this only works if using factors so we'll convert to factors.
-    data$x %<>% as.factor()
-    data$group %<>% as.factor() 
+    data$x = factor(data$x, levels = unique(data$x)) # set levels to preserve sorting.
+    data$group = factor(data$group, levels = unique(data$group)) # set levels to preserve sorting.
     data %<>% droplevels() # unused levels will create chaos later.
 
     # we need a complete mapping so the series' line up.
     # fill missing segments.
-    data = expand.grid(
-        x = sort(unique(data$x)),
-        group = sort(unique(data$group))
-    ) %>% 
-    left_join(data, by = c('x', 'group'))
+    data %<>% right_join( # right join to keep sorting from data. 
+      expand.grid(
+          x = levels(data$x),
+          group = levels(data$group)
+      ),
+      by = c('x', 'group')
+    )
 
     # extract categories for x axis.
-    categories = as.character(unique(data$x))
+    categories = levels(data$x)
 
     # create each series.
     series = list()
