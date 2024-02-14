@@ -4,7 +4,6 @@ Highcharter and htmlWidgets add many failure points between processing in R and 
 
 `hcslim` provides minimal HTML-based functions for creating plots in accordance with the Highcharts API. This allows easier use of Highcharts documentation and forums - and less time spent fighting Highcharter!
 
-* [About Me](#about)
 * [Highcharts](#highcharts)
 * [Philosophy](#philosophy)
 * [Installation](#installation)
@@ -25,7 +24,7 @@ Highcharts may require a paid license. Special consideration is given for person
 
 ## Philosophy
 
-hcslim takes a **web-first approach**: Instead of pre-packaging all the HTML and JS in a widget, it provides tools for building out a website that can connect to these resources. This requires a bit of knowledge about web development in addition to R. But let's be real: R Shiny developers need to know how the web works in order to be effective. [w3schools](https://www.w3schools.com/) is a great resource if you would like to learn how websites work.
+hcslim takes a **web-first approach**: instead of pre-packaging all the HTML and JS in a widget, it provides tools for building out a website that can connect to these resources. This requires a bit of knowledge about web development in addition to R. But let's be real: R Shiny developers need to know how websites work. [w3schools](https://www.w3schools.com/) is a great resource if you would like to learn more.
 
 This approach has benefits:
 
@@ -37,13 +36,13 @@ I presented on hcslim at Appsilon's conference where I go into this in depth. Yo
 
 ## Installation
 
-I had this set up as a package, but realized it's better to just have R files that can be slotted into a project. This code is actually pretty simple so packaging it is overkill. I've also found that shinyapps.io does not like packages that aren't on CRAN, and I haven't yet found time to get this code CRAN-ready. Avoiding a package also makes it easier to customize.
+I had this set up as a package, but realized it's better to just have R files that can be slotted into a project. This code is actually pretty simple so packaging it is overkill. I've also found that shinyapps.io does not like packages that aren't on CRAN, and I haven't found time to get this code CRAN-ready. Avoiding a package also makes it easier to customize.
 
-This means a bit more setup, but I think it'll be worth it for you in the long run. 
+This means a bit more setup, but I think it'll be worth it in the long run. 
 
-To use the code, download the files from `main/` (and `supplemental/` if you need them) into your project and then read them in with `source(file, local = TRUE)`. See the `examples/` folder for more concrete examples. 
+To use the code, download the files from `main/` (and `supplemental/` if you need them) into your project and import them with `source(file, local = TRUE)`. See the `examples/` folder for more concrete examples. 
 
-I also suggest putting `examples/www/highcharts-defaults.js` into your project and reading it in with `<script src=...></script>` (see examples) since this is a much better way to get consistently good-looking charts with minimal effort.
+I also suggest putting `examples/www/highcharts-defaults.js` into your project and importing it with `<script src=...></script>` (see examples) since this is a much better way to get consistently good-looking charts with minimal effort.
 
 ## Usage
 
@@ -103,7 +102,7 @@ Highcharts.chart('container', {
 });
 ```
 
-To build this chart in a R Shiny app with hcslim in your [app.R file](https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/):
+To build this chart in a R Shiny app with hcslim, here is your `app.R`:
 
 ```R
 require(shiny)
@@ -113,21 +112,16 @@ require(magrittr)
 # read main files. 
 for(file in list.files('main', full.names = TRUE)) source(file, local = TRUE)
 
-shinyApp(ui = basicPage(
-
-    hc_use(
-        'highcharts',
-        'modules/exporting',
-        'modules/export-data',
-        'modules/accessibility'
-    ),
+shinyApp(
     
-    uiOutput('testchart')
-
+  ui = basicPage(
+    hc_use(),    
+    uiOutput('testchart')  
   ),
+
   server = function(input, output) {
 
-    output$testchart = renderUI({ hc_html( 'testchart', list(
+    output$testchart = renderUI({ hc_html('testchart', list(
         chart = list(type = 'line'),
         title = list(text = 'Monthly Average Temperature'),
         subtitle = list(text = 'Source = WorldClimate.com'),
@@ -135,7 +129,7 @@ shinyApp(ui = basicPage(
             categories = c('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
         ),
         yAxis = list(
-            title= list(
+            title = list(
                 text = 'Temperature (°C)'
             )
         ),
@@ -172,6 +166,8 @@ This is where the hc_markjs function comes in.
 Here is an example using https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/xaxis/labels-formatter-extended/:
 
 *When using hc_markjs, open/close your characters with " instead of '. If you have " inside a markjs argment you might get the Javascript error `invalid escape sequence`.*
+
+Note the JS used for the xAxis `formatter`.
 
 ```html
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -214,21 +210,19 @@ Highcharts.chart('container', {
 });
 ```
 
-Notice the Javascript under formatter. In hcslim:
+In hcslim:
 
 ```R
 require(shiny)
 require(hcslim)
-shinyApp(ui = basicPage(
-
-    #jquery is already loaded by Shiny.
-    hc_use(
-        'highcharts' 
-    ),
+shinyApp(
     
-    uiOutput('testchart')
-
+  ui = basicPage(
+        #jquery is already loaded by Shiny.
+        hc_use(),    
+        uiOutput('testchart')
   ),
+
   server = function(input, output) {
 
     output$testchart = renderUI({ hc_html( 'testchart', list(
@@ -279,7 +273,7 @@ Common errors:
 
 ## Converting Highcharter-based Apps
 
-While it is smart to start new apps using the format above, it may be very difficult to convert existing apps. For this reason, functions have been included to make switching from Highcharter easier. To use these, read in the `supplementa/hc_highcharter.R` file and remove Highcharter. Most functions have been replaced such that they will directly work, **except for renderHighchart()**. Where as before you would have used:
+While it is smart to start new apps using the format above, it may be very difficult to convert existing apps. For this reason, functions have been included to make switching from Highcharter easier. To use these, read in the `supplemental/hc_highcharter.R` file and remove Highcharter. Most functions have been replaced such that they will directly work, **except for renderHighchart()**. Where as before you would have used:
 
 ```R
 renderHighchart({
@@ -297,4 +291,5 @@ renderHighchart('mychart', function(){
 
 ## Contributions
 
-hcslim is very new and coverage isn't great. In particular, we need functions to make transforming data easier for treemaps. Please consider making a Pull Request if you end up writing code like this.
+Please consider making a Pull Request if you end up improving or expanding this code!
+
