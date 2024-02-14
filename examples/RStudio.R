@@ -49,8 +49,8 @@ options = list(
       type = 'mapline',
       nullColor = '#707070',
       showInLegend =  FALSE,
-      enableMouseTracking =  FALSE,
-      accessibility = list(enabled =  FALSE)
+      enableMouseTracking = FALSE,
+      accessibility = list(enabled = FALSE)
     ),
 
     # Specify points using lat/lon

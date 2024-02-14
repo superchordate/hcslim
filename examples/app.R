@@ -9,12 +9,13 @@ for(file in list.files('../supplemental', full.names = TRUE)) source(file, local
 shinyApp(
   
   ui = basicPage(
-    hc_use(),
+    hc_use(maps = TRUE),
     # optional - use a defaults file. 
     HTML('<script type="text/javascript" src="highcharts-defaults.js"></script>'),
     uiOutput('full-spec'),
     uiOutput('iris'),
-    uiOutput('iris-grouped-withinfo')
+    uiOutput('iris-grouped-withinfo'),
+    uiOutput('map')
   ),
 
   server = function(input, output) {
@@ -94,6 +95,69 @@ shinyApp(
 
   })
 
+  # maps are a bit tricky. there are multiple ways to do them, but here is one:
+  output[['map']] = renderUI({
+    options = list(
+      title = list(text = 'map'),
+      chart = list(map = hc_markjs('topology')),
+      plotOptions = list(mappoint = list(dataLabels = list(enabled = TRUE))),
+      series = list(
+
+        # Use the gb-all map with no data as a basemap
+        list(
+          name = 'Great Britain',
+          borderColor = '#A0A0A0',
+          nullColor = 'rgba(200, 200, 200, 0.3)',
+          showInLegend = FALSE
+        ),
+        list(
+          name = 'Separators',
+          type = 'mapline',
+          nullColor = '#707070',
+          showInLegend =  FALSE,
+          enableMouseTracking =  FALSE,
+          accessibility = list(enabled =  FALSE)
+        ),
+
+        # Specify points using lat/lon
+        list(            
+          type = 'mappoint',
+          name = 'Cities',
+          color = 'blue',
+          # I haven't been able to get the dataLabels to work..
+          dataLabels = list(enabled = TRUE, format = '{point.name}', color = 'red'),
+          data = list(
+            list(
+              name = 'London',
+              lat = 51.507222,
+              lon = -0.1275
+            ), list(
+              name = 'Birmingham',
+              lat = 52.483056,
+              lon = -1.893611
+            ), list(
+              name = 'Leeds',
+              lat = 53.799722,
+              lon = -1.549167
+            ), list(
+              name = 'Glasgow',
+              lat = 55.858,
+              lon = -4.259
+            )
+          )
+        )
+
+      )
+    )
+
+    hc_html(
+      id = 'map',
+      options = options, 
+      class = 'mapChart',
+      loadmapfromurl = 'https://code.highcharts.com/mapdata/countries/gb/gb-all.topo.json',
+    )
+
+  })
 
 })
 

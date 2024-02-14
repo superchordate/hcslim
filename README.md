@@ -42,6 +42,8 @@ This means a bit more setup, but I think it'll be worth it in the long run.
 
 To use the code, download the files from `main/` (and `supplemental/` if you need them) into your project and import them with `source(file, local = TRUE)`. See the `examples/` folder for more concrete examples. 
 
+If you have a split global.R/server.R/ui.R setup, you'll need to cut/paste `hc_use` into your ui.R file.
+
 I also suggest putting `examples/www/highcharts-defaults.js` into your project and importing it with `<script src=...></script>` (see examples) since this is a much better way to get consistently good-looking charts with minimal effort.
 
 ## Usage
