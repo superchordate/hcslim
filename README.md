@@ -1,51 +1,53 @@
-# hcslim
-
-*Slim Highcharts for R Shiny*
+# Slim Highcharts for R and R Shiny
 
 Highcharter and htmlWidgets add many failure points between processing in R and plotting with Highcharts. 
-We provide minimal UI/HTML-based functions for creating plots in accordance with Highcharts documentation. 
-This allows easier use of Highcharts documentation and forums.
-It also provides a direct download of the Highcharts code, so the latest stable Highcharts version will always be used, although it may make applications less stable.
 
+`hcslim` provides minimal HTML-based functions for creating plots in accordance with the Highcharts API. This allows easier use of Highcharts documentation and forums - and less time spent fighting Highcharter!
+
+* [About Me](#about)
 * [Highcharts](#highcharts)
-* [Installation](#installation)
 * [Philosophy](#philosophy)
-* [Contributions](#contributions)
+* [Installation](#installation)
 * [Usage](#usage)
-* [Troubleshooting](#troubleshooting)
 * [Converting Highcharter-based Apps](#converting-highcharter-based-apps)
+* [Troubleshooting](#troubleshooting)
+* [Contributions](#contributions)
+
+## About Me
+
+I'm an independent contractor helping companies build custom cloud apps and leverage data science, visual analytics, and AI. I offer low introductory rates, free consultation and estimates, and no minimums, so contact me today and let's chat about how I can help!
+
+https://www.bryce-chamberlain.com/
 
 ## Highcharts
 
 Highcharts may require a paid license. Special consideration is given for personal (non-commercial) use, schools, and non-profit organizations. Get more information at https://www.highcharts.com.
 
-## Installation
-
-Install the latest version from github:
-
-```r
-devtools::install_github( "superchordate/hcslim" )
-```
-
 ## Philosophy
 
-`hcslim` takes a **web-first approach**:
+hcslim takes a **web-first approach**: Instead of pre-packaging all the HTML and JS in a widget, it provides tools for building out a website that can connect to these resources. This requires a bit of knowledge about web development in addition to R. But let's be real: R Shiny developers need to know how the web works in order to be effective. [w3schools](https://www.w3schools.com/) is a great resource if you would like to learn how websites work.
 
-Instead of pre-packaging all the HTML and JS in a widget, it provides tools for building out a website that can connect to these resources. This requires knowledge of web development. In fact, R Shiny developers need to know how the web works in order to be effective. [w3schools](https://www.w3schools.com/) is a great resource if you need to learn how websites work.
-
-This approach has key benefits:
+This approach has benefits:
 
 * Gives developers flexibility to optimize applications and choose specific highcharts versions and modules.
 * Simplifies design by removing unnecessary R-based abstractions.
 * Directly aligns with the highcharts documentation and forums. These are are fully mature, compared to Highcharter which has very little documentation or forum posts.
 
-## Contributions
+I presented on hcslim at Appsilon's conference where I go into this in depth. You can see that on [YouTube](https://www.youtube.com/watch?v=wDGEdiyDKac).
 
-`hcslim` is very new and coverage isn't great. In particular, we need functions to make transforming data easier for lists and for treemaps. Please consider making a Pull Request if you end up writing code like this.
+## Installation
+
+I had this set up as a package, but realized it's better to just have R files that can be slotted into a project. This code is actually pretty simple so packaging it is overkill. I've also found that shinyapps.io does not like packages that aren't on CRAN, and I haven't yet found time to get this code CRAN-ready. Avoiding a package also makes it easier to customize.
+
+This means a bit more setup, but I think it'll be worth it for you in the long run. 
+
+To use the code, download the files from `main/` (and `supplemental/` if you need them) into your project and then read them in with `source(file, local = TRUE)`. See the `examples/` folder for more concrete examples. 
+
+I also suggest putting `examples/www/highcharts-defaults.js` into your project and reading it in with `<script src=...></script>` (see examples) since this is a much better way to get consistently good-looking charts with minimal effort.
 
 ## Usage
 
-Highcharts examples can be found at https://www.highcharts.com/demo. If you click through you will find JS Fiddle examples that contain everything you need to build a chart, including JS libraries. Once you find one of these, it can be replicated easily in `hcslim`.
+Highcharts examples can be found at https://www.highcharts.com/demo. If you click through you will find JS Fiddle examples that contain everything you need to build a chart, including JS libraries. Once you find one of these, it can be replicated easily with `hcslim`.
 
 We'll look specifically at [this example](https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/demo/line-labels/).
 
@@ -105,10 +107,15 @@ To build this chart in a R Shiny app with hcslim in your [app.R file](https://sh
 
 ```R
 require(shiny)
-require(hcslim)
+require(dplyr)
+require(magrittr)
+
+# read main files. 
+for(file in list.files('main', full.names = TRUE)) source(file, local = TRUE)
+
 shinyApp(ui = basicPage(
 
-    hcslim::usecode(
+    hc_use(
         'highcharts',
         'modules/exporting',
         'modules/export-data',
@@ -120,7 +127,7 @@ shinyApp(ui = basicPage(
   ),
   server = function(input, output) {
 
-    output$testchart = renderUI({ hcslim::hchtml( 'testchart', list(
+    output$testchart = renderUI({ hc_html( 'testchart', list(
         chart = list(type = 'line'),
         title = list(text = 'Monthly Average Temperature'),
         subtitle = list(text = 'Source = WorldClimate.com'),
@@ -152,57 +159,19 @@ shinyApp(ui = basicPage(
 })
 ```
 
-You'll need to write code to build out the series. You can use list_parse to bring in extra point properties. 
+This is a very simple example. See `examples/app.R` for more complicated/realistic examples.
 
-These helpful functions also exist:
+See `examples/RStudio.R` for an example using hcslim outside of an R Shiny app, for example in R Studio or Quarto. *hc_view will import the Highcharts JS files every time it is used, so you may want to customize it if you plan to use it a lot.*
 
-| Function | Description |
-| ----------- | ----------- |
-| hcslim_view | Show a chart in the viewer pan in RStudio. |
-| addgroupedseries | Seperating data into series is a very common operation. This function takes your grouped data and adds the series'. |
+**hc_markjs**
 
-## Troubleshooting
+When converting your options to JSON, hcslim needs to know what parts are Javascript, otherwise it'll surround your javascript with quotes and it won't run as code. 
 
-If there are no R errors and the charts aren't showing, use the browser JavaScript console to check for JavaScript errors. Sometimes there will be Highcharts errors that will give you a hint as to what is wrong.
+This is where the hc_markjs function comes in. 
 
-If there are no Highcharts errors, but you do see unclear errors, it might be a JavaScript syntax issue in the code output by hcslim. Use the `printjson = TRUE` argument for `hchtml` or `renderHighcharts` to print the output JSON data for your chart to the R console. 
+Here is an example using https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/xaxis/labels-formatter-extended/:
 
-* You can paste this into a JS Fiddle example for the chart type you are working with.
-* For example, if it's a treemap then I google `highcharts jsfiddle treemap`, access the fiddle, and replace the options object `{type: "treemap", ...}` with the console output. Then tweak the options to find out what fixes the chart.
-* If you are familiar with JavaScript , you can probably find the issue by visually scanning the output.
-
-Common errors:
-
-* Not marking JavaScript code with `markjs()`.
-* `invalid escape sequence`: when using markjs, open/close your characters with " instead of '. If you have " inside a markjs argment you might get this Javascript error. I'll try to fix this in a later version.*
-* Not having the JS files you need. Pay attention to JSFiddle examples to see what JS files they import and either include these in your project or add them with `usefules()`, in the correct order. Order is really important with Highcharts code modules.
-* If you are using actual .js files instead of `usecode()` your files may need to be in a folder structure that matches JSFiddles. For example, if the JS fiddle reference is https://code.highcharts.com/modules/exporting.js then you need to save this file into the modules folder relative to the location of highcharts.js.
-
-## Converting Highcharter-based Apps
-
-While it is smart to start new apps using the format above, it may be very difficult to convert existing apps. For this reason, functions have been included to make switching from Highcharter easier. To use these, just replace Highcharter with hcslim in your code. Most functions have been replaced such that they will directly work, **except for renderHighchart()**. Where as before you would have used:
-
-```R
-renderHighchart({
-    # code to build chart here (including series data).
-})
-```
-
-You now need to give the chart id followed by a function that builds the options list, similar to:
-
-```R
-renderHighchart('mychart', function(){
-    # code to build options here (including series data).
-})
-```
-
-**markjs**
-
-When converting your options to JSON, `hcslim` needs to know what parts are Javascript, otherwise it'll surround your javascript with quotes and it won't run. 
-
-This is where the markjs function comes in. Using https://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/xaxis/labels-formatter-extended/:
-
-*When using markjs, open/close your characters with " instead of '. If you have " inside a markjs argment you might get the Javascript error `invalid escape sequence`. I'll try to fix this in a later version.*
+*When using hc_markjs, open/close your characters with " instead of '. If you have " inside a markjs argment you might get the Javascript error `invalid escape sequence`.*
 
 ```html
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -253,7 +222,7 @@ require(hcslim)
 shinyApp(ui = basicPage(
 
     #jquery is already loaded by Shiny.
-    hcslim::usecode(
+    hc_use(
         'highcharts' 
     ),
     
@@ -262,11 +231,11 @@ shinyApp(ui = basicPage(
   ),
   server = function(input, output) {
 
-    output$testchart = renderUI({ hcslim::hchtml( 'testchart', list(
+    output$testchart = renderUI({ hc_html( 'testchart', list(
         title = list(text = 'Demo of reusing but modifying default X axis label formatter'),
         subtitle = list(text = 'X axis labels should have thousands separators'),
         xAxis = list(
-            labels = list(formatter = markjs(" 
+            labels = list(formatter = hc_markjs(" 
                 function () {
                     var label = this.axis.defaultLabelFormatter.call(this);
 
@@ -291,3 +260,41 @@ shinyApp(ui = basicPage(
 
 })
 ```
+
+
+## Troubleshooting
+
+If there are no R errors and the charts aren't showing, use the browser JavaScript console to check for JavaScript errors. Sometimes there will be Highcharts errors that will give you a hint as to what is wrong.
+
+If there are no Highcharts JS errors, but you do see other JS errors, it might be a JavaScript syntax issue in the code output by hcslim. Use the `printjson = TRUE` argument for `hc_html` to print the output JSON to the R console. Review it to see if anything looks off. If you are familiar with JavaScript , you can probably find the issue by visually scanning the output.
+
+You can also paste this JSON into a JS Fiddle example for the chart type you are working with For example, if it's a treemap then I google `highcharts jsfiddle treemap`, access the fiddle, and replace the options object `{type: "treemap", ...}` with the console output. Then tweak the options to find out what fixes the chart.
+
+Common errors:
+
+* Not marking JavaScript code like `hc_markjs("some js")`.
+* Invalid escape sequence: when using markjs, open/close your characters with " instead of '. If you have " inside a markjs argment you might get the `invalid escape sequence` Javascript error.
+* Not having the JS files you need. Pay attention to JSFiddle examples to see what JS files they import and either include these in your project or add them with `hc_use()`, in the correct order. Order is really important with Highcharts code modules.
+* If you are using direct .js files instead of `hc_use()`, which I do recommend for complex apps, your files need to be in a folder structure that matches JSFiddles. For example, if the JS fiddle reference is https://code.highcharts.com/modules/exporting.js then you need to save this file into the modules/ folder relative to the location of highcharts.js.
+
+## Converting Highcharter-based Apps
+
+While it is smart to start new apps using the format above, it may be very difficult to convert existing apps. For this reason, functions have been included to make switching from Highcharter easier. To use these, read in the `supplementa/hc_highcharter.R` file and remove Highcharter. Most functions have been replaced such that they will directly work, **except for renderHighchart()**. Where as before you would have used:
+
+```R
+renderHighchart({
+    # code to build chart here (including series data).
+})
+```
+
+You now need to give the chart id followed by a function that builds the options list, similar to:
+
+```R
+renderHighchart('mychart', function(){
+    # code to build options here (including series data).
+})
+```
+
+## Contributions
+
+hcslim is very new and coverage isn't great. In particular, we need functions to make transforming data easier for treemaps. Please consider making a Pull Request if you end up writing code like this.

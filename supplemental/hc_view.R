@@ -42,7 +42,7 @@
 #'hcslim_view(options)
 #'
 #' }
-hcslim_view = function(
+hc_view = function(
     
     options, 
     class = c('chart', 'mapChart', 'stockChart', 'ganttChart'),
@@ -64,8 +64,8 @@ hcslim_view = function(
   
   # build the chart from options, and the module import.
   toview = list(
-    usecode(usecode_include),
-    hchtml(
+    hc_use(usecode_include),
+    hc_html(
       id = id, 
       options = options, 
       class = class, 
@@ -86,6 +86,7 @@ hcslim_view = function(
   # open the viewer.
   viewer = getOption("viewer")
   viewer(tempfile)
+  print(tempfile)
   
 }
 

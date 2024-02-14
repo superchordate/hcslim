@@ -1,3 +1,5 @@
+#TODO update these tests so they are not in package format. 
+
 # test that code runs and outputs the expected class.
 expect_equal(
     class(hchtml( 'testchart', list(
