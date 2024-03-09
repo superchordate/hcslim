@@ -1,0 +1,11 @@
+dependencies:
+
+ - name: highmaps
+   version: 11.4.0
+   src: htmlwidgets/lib/
+   script: highmaps.js
+
+ - name: highcharts-defaults
+   version: 0.1
+   src: htmlwidgets/lib/
+   script: highcharts-defaults.js

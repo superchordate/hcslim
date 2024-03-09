@@ -1,15 +1,29 @@
-require(glue)
 
-# see https://github.com/superchordate/hcslim for more detailed documentation and examples. 
-
-# main function: converts an R list to Highcharts options and return Highcharts JS.
+#' hc_html
+#'
+#' Main hcslim function. Converts an R list to Highcharts options and return Highcharts JS.
+#' See https://github.com/superchordate/hcslim for more detailed documentation and examples. 
+#' 
+#' Author: Bryce Chamberlain
+#'
+#' @param id HTML id of the div to put the chart in.
+#' @param options Options list using standard Highcharts options and hc_markjs to mark Javascript code. 
+#' @param class Type of chart. 
+#' @param loadmapfromurl URL to load your base map from.
+#' @param printjs Print the generated Javascript. Useful for debugging. 
+#' @param pretty Output readable Javascript.
+#' @param for_widget Special option for buiding an htmlwidget. Please don't change it.
+#'
+#' @return HTML script tag with the Javascript to create your Highcharts chart.
+#' @export
 hc_html = function(
   id, 
   options, 
   class = c('chart', 'mapChart', 'stockChart', 'ganttChart'),
   loadmapfromurl = NULL,
   printjs = FALSE, 
-  pretty = printjs
+  pretty = printjs,
+  for_widget = FALSE # special option for buiding an htmlwidget.
 ){
   
   # validate inputs.
@@ -48,10 +62,18 @@ hc_html = function(
       const topology = await fetch("{loadmapfromurl}").then(response => response.json()); 
       Highcharts.{class}("{id}", {json});
     ')
-    html = glue::glue('<script>(async () => {{{js}}})();</script>')
+    if(!for_widget){
+      html = glue::glue('<script>(async () => {{{js}}})();</script>')
+    } else {
+      html = glue::glue('(async () => {{{js}}})();')
+    }
   } else {
     js = glue::glue("Highcharts.{class}('{id}', {json});")
-    html = glue::glue('<script>{js}</script>')
+    if(!for_widget){
+      html = glue::glue('<script>{js}</script>')
+    } else {
+      html = js
+    }
   }
   if(printjs) print(js)
   
@@ -59,13 +81,37 @@ hc_html = function(
 
 }
 
-# marks Javascript code so hc_html knows how to handle it.
-# use it when defining your options list anytime you need text to be interpreted as JS.
+#' hc_markjs
+#'
+#' Marks Javascript code so hc_html knows how to handle it.
+#' See https://github.com/superchordate/hcslim for more detailed documentation and examples. 
+#' 
+#' Author: Bryce Chamberlain
+#'
+#' @param string Javascript code as a character.
+#'
+#' @return Javacript code inside "JS!{string}!" which hc_html will know what to do with.
+#' @export
 hc_markjs = function(string){
   return(as.character(glue::glue('JS!{string}!')))
 }
 
-# helper functions to add a grouped series. 
+#' hc_addgroupedseries
+#'
+#' Helper to add a grouped series. 
+#' See https://github.com/superchordate/hcslim for more detailed documentation and examples. 
+#' 
+#' Author: Bryce Chamberlain
+#'
+#' @param options Your starting Highcharts options.
+#' @param data Data to pull from.
+#' @param groupcol Character indicating the column to use for grouping. 
+#' @param xcol Character indicating the column to use for the x value. 
+#' @param ycol Character indicating the column to use for the y value. 
+#' @param zcol Character indicating the column to use for the z value (used in Bubble charts, etc). 
+#'
+#' @return Modified Highcharts options with series' added.
+#' @export
 hc_addgroupedseries = function(options, data, groupcol, xcol, ycol, zcol = NULL){
 
     # validation.
@@ -127,8 +173,18 @@ hc_addgroupedseries = function(options, data, groupcol, xcol, ycol, zcol = NULL)
 
 }
 
-# enabling the tooltip is not intuitive so we have this function to add it. 
-# I like to use enableMouseTracking = FALSE to remove distractions.
+#' hc_enabletooltips
+#'
+#' Helper to enable tooltips on a chart. Enabling the tooltip is not intuitive because of how I've set up the defaults, so we have this function to enable them more easily.
+#' I like to use enableMouseTracking = FALSE to remove distractions.
+#' See https://github.com/superchordate/hcslim for more detailed documentation and examples. 
+#' 
+#' Author: Bryce Chamberlain
+#'
+#' @param options Your starting Highcharts options.
+#'
+#' @return Modified Highcharts options with tooltips enabled (series > enableMouseTracking > TRUE)
+#' @export
 hc_enabletooltips = function(options){
   if(!('plotOptions' %in% names(options))) options$plotOptions = list()
   if(!('series' %in% names(options$plotOptions))) options$plotOptions$series = list()

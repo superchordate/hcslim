@@ -1,3 +1,5 @@
+# This is currently Broken. It'll be easier to use the approach from examples RStudio-Widget. I may not fix this.
+
 require(dplyr)
 require(magrittr)
 require(easyr)
@@ -5,8 +7,7 @@ require(easyr)
 begin() # clear variables, workspace to file location.
 
 # read main and supplemental files. 
-for(file in list.files('../main', full.names = TRUE)) source(file, local = TRUE)
-for(file in list.files('../supplemental', full.names = TRUE)) source(file, local = TRUE)
+for(file in list.files('../R', full.names = TRUE)) source(file, local = TRUE)
 
 # line chart.
 options = list(

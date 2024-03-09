@@ -26,6 +26,8 @@ Highcharts may require a paid license. Special consideration is given for person
 
 hcslim takes a **web-first approach**: instead of pre-packaging all the HTML and JS in a widget, it provides tools for building out a website that can connect to these resources. This requires a bit of knowledge about web development in addition to R. But let's be real: R Shiny developers need to know how websites work. [w3schools](https://www.w3schools.com/) is a great resource if you would like to learn more.
 
+> Update: I have recently added an experimental packaged widget. You can install this as a package with `devtools::install_github("superchordate/hcslim")` and then see `examples\RStudio-Widget.R`. 
+
 This approach has benefits:
 
 * Gives developers flexibility to optimize applications and choose specific highcharts versions and modules.
@@ -40,11 +42,13 @@ I had this set up as a package, but realized it's better to just have R files th
 
 This means a bit more setup, but I think it'll be worth it in the long run. 
 
-To use the code, download the files from `main/` (and `supplemental/` if you need them) into your project and import them with `source(file, local = TRUE)`. See the `examples/` folder for more concrete examples. 
+To use the code, download the files from `R/hc_use.R` and `R/hc_html.R` (and the other files in `R/` if you need them) into your project and import them with `source(file, local = TRUE)`. See the `examples/` folder for more concrete examples. 
 
 If you have a split global.R/server.R/ui.R setup, you'll need to cut/paste `hc_use` into your ui.R file.
 
 I also suggest putting `examples/www/highcharts-defaults.js` into your project and importing it with `<script src=...></script>` (see examples) since this is a much better way to get consistently good-looking charts with minimal effort.
+
+> Update: I have recently added an experimental packaged widget. You can install this as a package with `devtools::install_github("superchordate/hcslim")` and then see `examples\RStudio-Widget.R`. 
 
 ## Usage
 

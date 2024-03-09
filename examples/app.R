@@ -3,8 +3,7 @@ require(dplyr)
 require(magrittr)
 
 # read main and supplemental files. 
-for(file in list.files('../main', full.names = TRUE)) source(file, local = TRUE)
-for(file in list.files('../supplemental', full.names = TRUE)) source(file, local = TRUE)
+for(file in list.files('../R', full.names = TRUE)) source(file, local = TRUE)
 
 shinyApp(
   

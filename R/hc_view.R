@@ -1,4 +1,4 @@
-#' View hcslim result in viewer. 
+#' View hcslim result in viewer. (Deprecated, replaced with hc_widget)
 #' 
 #' Allows viewing of hcslim output in RStudio. 
 #'
@@ -8,8 +8,8 @@
 #' @param loadmapfromurl If you are using a map, this is the URL of the topo.json file. Example: 'https://code.highcharts.com/mapdata/countries/us/us-ca-all.topo.json'
 #' @param pretty Use pretty formatting when converting options to JSON.
 #' @param printjs Print completed JS to console for troubleshooting or pasting into jsFiddle.
-#' @printtempfile Print the location of the temporary HTML file (helpful for troubleshooting).
-#' @printhtml Print the HTML code used for Viewer (helpful for troubleshooting).
+#' @param printtempfile Print the location of the temporary HTML file (helpful for troubleshooting).
+#' @param printhtml Print the HTML code used for Viewer (helpful for troubleshooting).
 #'
 #' @return Creates a temp HTML file and shows it in the viewer. 
 #' @export
