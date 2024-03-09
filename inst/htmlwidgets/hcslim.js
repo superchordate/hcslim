@@ -15,7 +15,7 @@ HTMLWidgets.widget({
         // TODO: code to render the widget, e.g.
         const div = document.createElement('div')
         div.id = x.id 
-        div.innerText = 'Hello'
+        div.innerText = 'This text should be replaced by a Highchart. If you are seeing it, something probably went wrong in your options. Check the JS errors in the console.'
 
         const script = document.createElement('script')
         script.innerText = x.script
