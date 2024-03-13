@@ -9,14 +9,15 @@
 #' @param width Standard argument passed to htmlwidgets::createWidget.
 #' @param height Standard argument passed to htmlwidgets::createWidget.
 #' @param elementId Standard argument passed to htmlwidgets::createWidget.
+#' @param ... Remaining arguments are passed to hc_html.
 #'
 #' @return htmlwidgets widget representing your Highcharts chart. 
 #' @export
-hc_widget <- function(options, width = NULL, height = NULL, elementId = NULL) {
+hc_widget <- function(options, width = NULL, height = NULL, elementId = NULL, ...) {
 
   # forward options using x
   id = digest::digest(options, algo = 'xxhash64', seed = 558)
-  x = list(id = id, script = hc_html(id = id, options = options, for_widget = TRUE))
+  x = list(id = id, script = hc_html(id = id, options = options, for_widget = TRUE, ...))
 
   # create widget
   htmlwidgets::createWidget(

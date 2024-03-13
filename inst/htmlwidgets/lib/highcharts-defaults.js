@@ -1,4 +1,4 @@
-Highcharts.setOptions({
+document.addEventListener('DOMContentLoaded', function() { Highcharts.setOptions({
     lang: {
         numericSymbols: ["K", "M", "B", "T", "P", "E"],
         thousandsSep: ','
@@ -35,8 +35,9 @@ Highcharts.setOptions({
                 fontSize: '12pt'
              }
            }
-        }
+        },
+        line: {marker: { enabled: false }}
      },
     credits: {enabled: false}
-});
+})});
 

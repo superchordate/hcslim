@@ -4,7 +4,7 @@
 \alias{hc_widget}
 \title{hcslim Widget (Experimental)}
 \usage{
-hc_widget(options, width = NULL, height = NULL, elementId = NULL)
+hc_widget(options, width = NULL, height = NULL, elementId = NULL, ...)
 }
 \arguments{
 \item{options}{Options list using standard Highcharts options and hc_markjs to mark Javascript code.}
@@ -14,6 +14,8 @@ hc_widget(options, width = NULL, height = NULL, elementId = NULL)
 \item{height}{Standard argument passed to htmlwidgets::createWidget.}
 
 \item{elementId}{Standard argument passed to htmlwidgets::createWidget.}
+
+\item{...}{Remaining arguments are passed to hc_html.}
 }
 \value{
 htmlwidgets widget representing your Highcharts chart.

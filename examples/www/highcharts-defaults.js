@@ -35,7 +35,8 @@ document.addEventListener('DOMContentLoaded', function() { Highcharts.setOptions
                 fontSize: '12pt'
              }
            }
-        }
+        },
+        line: {marker: { enabled: false }}
      },
     credits: {enabled: false}
 })});
