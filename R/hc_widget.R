@@ -15,8 +15,11 @@
 #' @export
 hc_widget <- function(options, width = NULL, height = NULL, elementId = NULL, ...) {
 
+  # choose an ID for the element.
+  hc_widgetcount = hc_widgetcount <<- hc_widgetcount + 1
+  id = paste0('hc', hc_widgetcount)
+
   # forward options using x
-  id = digest::digest(options, algo = 'xxhash64', seed = 558)
   x = list(id = id, script = hc_html(id = id, options = options, for_widget = TRUE, ...))
 
   # create widget
@@ -58,3 +61,5 @@ renderHcslim <- function(expr, env = parent.frame(), quoted = FALSE) {
   if (!quoted) { expr <- substitute(expr) } # force quoted
   htmlwidgets::shinyRenderWidget(expr, hcslimOutput, env, quoted = TRUE)
 }
+
+hc_widgetcount = 0
