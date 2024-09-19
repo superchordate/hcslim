@@ -120,8 +120,8 @@ hc_addgroupedseries = function(options, data, groupcol, xcol, ycol, zcol = NULL)
         hcslim::addgroupedseries Warning W513.
       ')
 
-      for(icol in c(groupcol, xcol, ycol)) if(!(icol %in% names(data))) stop(glue('
-        Column [{icol}] was not found in the data. 
+      for(icol in c(groupcol, xcol, ycol)) if(!(icol %in% names(data))) stop(paste0('
+        Column [', icol, '] was not found in the data. 
         hcslim::addgroupedseries Error 514.
       '))
 
@@ -134,11 +134,12 @@ hc_addgroupedseries = function(options, data, groupcol, xcol, ycol, zcol = NULL)
     # this only works if using factors so we'll convert to factors.
     data$x = factor(data$x, levels = unique(data$x)) # set levels to preserve sorting.
     data$group = factor(data$group, levels = unique(data$group)) # set levels to preserve sorting.
-    data %<>% droplevels() # unused levels will create chaos later.
+    data = droplevels(data) # unused levels will create chaos later.
 
     # we need a complete mapping so the series' line up.
     # fill missing segments.
-    data %<>% right_join( # right join to keep sorting from data. 
+    data = right_join( # right join to keep sorting from data. 
+      data,
       expand.grid(
           x = levels(data$x),
           group = levels(data$group)
@@ -153,10 +154,7 @@ hc_addgroupedseries = function(options, data, groupcol, xcol, ycol, zcol = NULL)
     if(!('series' %in% names(options))) options$series = list()
     for(jdt in split(data, data$group)) options$series[[length(options$series) + 1]] <- list(
         name = as.character(jdt$group[1]),
-        data = jdt %>% 
-            mutate(x = as.numeric(x) - 1) %>% 
-            select(-group) %>%
-            hc_dataframe_to_list()
+        data = hc_dataframe_to_list(select(mutate(jdt, x = as.numeric(x) - 1), -group))
     )
 
     if(!('xAxis' %in% names(options))) options$xAxis = list()

@@ -134,8 +134,8 @@ renderHighchart = function(id, options, class='chart', prettyjs=FALSE) renderUI(
 #' @export
 highchartOutput = function(id, height = NULL, width = NULL){
   style = ''
-  if(!is.null(height)) style = glue('{style}height: {height}px; ')
-  if(!is.null(width)) style = glue('{style}width: {width}px; ')
+  if(!is.null(height)) style = paste0(style, 'height: ', height, 'px; ')
+  if(!is.null(width)) style = paste0(style, 'width: ', width, 'px; ')
   style = gsub('pxpx', 'px', style)
   return(uiOutput(id, style=style))
 }

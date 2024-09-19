@@ -2,3 +2,9 @@
 ^\.Rproj\.user$
 examples/
 tests/
+build-install-test.R
+cran-comments.txt
+publish-instructions.txt
+README.md
+.tar.gz
+LICENSE

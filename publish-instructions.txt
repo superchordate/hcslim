@@ -5,9 +5,10 @@
 
 # run build-install-test.R to set up roxygen documentation and run examples, tests
 
-# open command prompt at the hcslim folder and run the below (after updating the version number)
+# open command prompt (won't work in PowerShell) at the hcslim folder and run the below (after updating the version number)
 # add --no-manual if you get PDF creation errors.
-R CMD build . & R CMD check hcslim_0.2-1.tar.gz --as-cran --no-manual
+R CMD build .
+R CMD check hcslim_0.2-1.tar.gz --as-cran --no-manual
 
 # Load to https://win-builder.r-project.org/upload.aspx under R-devel to check similarly against the latest R version.
 

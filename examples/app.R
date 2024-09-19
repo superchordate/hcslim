@@ -46,7 +46,7 @@ shinyApp(
 
       # enabling the tooltip is not intuitive so we have this function to add it. 
       # I like to use enableMouseTracking = FALSE to remove distractions.
-      options %<>% hc_enabletooltips()
+      options = hc_enabletooltips(options)
 
       return(hc_html('full-spec', options))
       
@@ -58,7 +58,7 @@ shinyApp(
       title = list(text = 'iris'),
       chart = list(type = 'bubble'),
       series = list(list(
-        data = iris %>% select(x = Sepal.Length, y = Sepal.Width, z = Petal.Length)
+        data = select(iris, x = Sepal.Length, y = Sepal.Width, z = Petal.Length)
       ))
     )))
 
@@ -73,7 +73,8 @@ shinyApp(
 
       # add grouped series.
       names(iris) = gsub('[.]', '', names(iris)) # periods will break JS later. 
-      options %<>% hc_addgroupedseries(
+      options = hc_addgroupedseries(
+        options,
         data = iris, 
         groupcol = 'Species', 
         xcol = 'SepalLength', ycol = 'SepalWidth', zcol = 'PetalLength'
@@ -88,7 +89,7 @@ shinyApp(
           Petal Length/Width: {point.PetalLength} / {point.PetalWidth}
         '
       )
-      options %<>% hc_enabletooltips()
+      options = hc_enabletooltips(options)
 
       return(hc_html('iris-grouped-withinfo', options))
 

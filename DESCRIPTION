@@ -3,7 +3,7 @@ Type: Package
 Title: Slim Highcharts for R and R Shiny
 Version: 0.2-1
 Authors@R: 
-    person("Bryce", "Chamberlain", , "superchordate@gmail.com", role = c("aut", "cre"))
+    person("Bryce", "Chamberlain", , "bryce@brycechamberlainllc.com", role = c("aut", "cre"))
 Description: 
     Highcharter and htmlWidgets add many failure points between processing in R and plotting with Highcharts. 
     hcslim provides minimal HTML-based functions for creating plots in accordance with the Highcharts API. 
