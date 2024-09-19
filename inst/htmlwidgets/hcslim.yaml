@@ -1,11 +1,36 @@
 dependencies:
 
- - name: highmaps
-   version: 11.4.0
+ - name: highcharts
+   version: 11.4.8
    src: htmlwidgets/lib/
-   script: highmaps.js
+   script: highcharts.src.js
 
- - name: highcharts-defaults
-   version: 0.1
-   src: htmlwidgets/lib/
-   script: highcharts-defaults.js
+ - name: highcharts-more
+   version: 11.4.8
+   src: htmlwidgets/lib/modules/
+   script: highcharts-more.src.js
+
+ - name: map
+   version: 11.4.8
+   src: htmlwidgets/lib/modules/
+   script: map.src.js
+
+ - name: sankey
+   version: 11.4.8
+   src: htmlwidgets/lib/modules/
+   script: sankey.js
+
+ - name: accessibility
+   version: 11.4.8
+   src: htmlwidgets/lib/modules/
+   script: accessibility.src.js
+
+ - name: exporting
+   version: 11.4.8
+   src: htmlwidgets/lib/modules/
+   script: exporting.src.js
+
+#  - name: highcharts-defaults
+#    version: 0.1
+#    src: htmlwidgets/lib/
+#    script: highcharts-defaults.js
