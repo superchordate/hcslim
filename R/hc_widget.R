@@ -16,6 +16,7 @@
 hc_widget <- function(options, width = NULL, height = NULL, elementId = NULL, ...) {
 
   # choose an ID for the element.
+  base::unlockBinding('hc_widgetcount',  where('hc_widgetcount'))
   hc_widgetcount = hc_widgetcount <<- hc_widgetcount + 1
   id = paste0('hc', hc_widgetcount)
 
@@ -63,3 +64,5 @@ renderHcslim <- function(expr, env = parent.frame(), quoted = FALSE) {
 }
 
 hc_widgetcount = 0
+
+where = function(name, env = parent.frame()) if (exists(name, env, inherits = FALSE)) { env } else { where(name, parent.env(env)) } # https://github.com/hadley/pryr/blob/master/R/where.r
