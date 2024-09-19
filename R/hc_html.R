@@ -58,7 +58,7 @@ hc_html = function(
   if(!is.null(loadmapfromurl)){
     js = paste0('
       const topology = await fetch("', loadmapfromurl, '").then(response => response.json()); 
-      Highcharts.', class, '("',id, '", {json});
+      Highcharts.', class, '("',id, '", ', json, ');
     ')
     if(!for_widget){
       html = paste0('<script>(async () => {', js, '})();</script>')
@@ -66,7 +66,7 @@ hc_html = function(
       html = paste0('(async () => {', js, '})();')
     }
   } else {
-    js = paste0('Highcharts.{class}("', id, '", ', json, ');')
+    js = paste0('Highcharts.', class, '("', id, '", ', json, ');')
     if(!for_widget){
       html = paste0('<script>', js, '</script>')
     } else {
