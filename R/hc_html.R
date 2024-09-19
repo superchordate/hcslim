@@ -28,9 +28,7 @@ hc_html = function(
   
   # validate inputs.
   class = match.arg(class)
-  if(grepl('[ ]', id)) stop(glue::glue('
-    hcslim: Invalid id [{id}]. Must be HTML-compatible. See https://stackoverflow.com/a/79022/4089266.
-  '))
+  if(grepl('[ ]', id)) stop(paste0('hcslim: Invalid id [', id, ']. Must be HTML-compatible. See https://stackoverflow.com/a/79022/4089266.'))
 
   # if series data is a data frame, we need to convert it to a list.
   for(i in seq_along(options$series)) if(!is.null(ncol(options$series[[i]]$data))){
@@ -58,19 +56,19 @@ hc_html = function(
   # option to print completed JS to console for troubleshooting or pasting into jsFiddle.
   # add map download if necessary https://www.highcharts.com/docs/maps/map-collection
   if(!is.null(loadmapfromurl)){
-    js = glue::glue('
-      const topology = await fetch("{loadmapfromurl}").then(response => response.json()); 
-      Highcharts.{class}("{id}", {json});
+    js = paste0('
+      const topology = await fetch("', loadmapfromurl, '").then(response => response.json()); 
+      Highcharts.', class, '("',id, '", {json});
     ')
     if(!for_widget){
-      html = glue::glue('<script>(async () => {{{js}}})();</script>')
+      html = paste0('<script>(async () => {', js, '})();</script>')
     } else {
-      html = glue::glue('(async () => {{{js}}})();')
+      html = paste0('(async () => {', js, '})();')
     }
   } else {
-    js = glue::glue("Highcharts.{class}('{id}', {json});")
+    js = paste0('Highcharts.{class}("', id, '", ', json, ');')
     if(!for_widget){
-      html = glue::glue('<script>{js}</script>')
+      html = paste0('<script>', js, '</script>')
     } else {
       html = js
     }
@@ -93,7 +91,7 @@ hc_html = function(
 #' @return Javacript code inside "JS!{string}!" which hc_html will know what to do with.
 #' @export
 hc_markjs = function(string){
-  return(as.character(glue::glue('JS!{string}!')))
+  return(as.character(paste0('JS!', string, '!')))
 }
 
 #' hc_addgroupedseries

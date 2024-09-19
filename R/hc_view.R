@@ -78,7 +78,7 @@ hc_view = function(
   
   # write the temporary file.
   fileConn = file(tempfile)
-  html = c(glue::glue('<div id="{id}"></div>'), toview)
+  html = c(paste0('<div id="', id, '"></div>'), toview)
   if(printhtml) print(html)
   writeLines(html, fileConn)
   close(fileConn)

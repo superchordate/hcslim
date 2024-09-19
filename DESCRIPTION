@@ -15,7 +15,6 @@ RoxygenNote: 7.1.1
 URL: https://github.com/superchordate/hcslim/
 BugReports: https://github.com/superchordate/hcslim//issues
 Imports:
-    glue,
     jsonlite,
     htmltools,
     digest

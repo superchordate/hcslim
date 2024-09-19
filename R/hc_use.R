@@ -19,7 +19,7 @@ hc_use = function(
   lapply(
     hc_paths,
     function(module) htmltools::HTML(as.character(
-      glue::glue('<script src="https://code.highcharts.com/{module}.js"></script>')
+      paste0('<script src="https://code.highcharts.com/', module, '.js"></script>')
     ))
   )
 }
