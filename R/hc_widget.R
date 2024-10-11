@@ -28,7 +28,13 @@ hc_widget <- function(options, width = NULL, height = NULL, elementId = NULL, ..
     name = 'hcslim',
     x,
     width = width,
-    height = height,
+    height = height,    
+    sizingPolicy = htmlwidgets::sizingPolicy(
+      browser.fill = TRUE,
+      defaultWidth = '100%',
+      defaultHeight = '100%',
+      padding = 0
+    ),
     package = 'hcslim',
     elementId = elementId
   )

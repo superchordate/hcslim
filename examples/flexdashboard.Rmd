@@ -1,0 +1,120 @@
+---
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+---
+
+```{r}
+require(hcslim)
+```
+
+Row
+-----------------------------------------------------------------------
+
+### Chart 1
+
+```{r}
+options = list(
+  chart = list(type = 'line'),
+  title = list(text = 'Some Numbers'),
+  yAxis = list(
+    title = list(
+      text = '123456'
+    )
+  ),
+  series = list(
+    list(
+      name = '123',
+      data = c(1, 2, 3)
+    ),
+    list(
+      name = '456',
+      data = c(4, 5, 6)
+    )
+  )
+)
+
+hc_widget(options = options)
+```
+
+### Chart 2
+
+```{r}
+options = list(
+  chart = list(type = 'line'),
+  title = list(text = 'Some Numbers'),
+  yAxis = list(
+    title = list(
+      text = '123456'
+    )
+  ),
+  series = list(
+    list(
+      name = '123',
+      data = c(1, 2, 3)
+    ),
+    list(
+      name = '456',
+      data = c(4, 5, 6)
+    )
+  )
+)
+
+hc_widget(options = options)
+```
+
+Row
+-----------------------------------------------------------------------
+
+### Chart 3
+
+```{r}
+options = list(
+  chart = list(type = 'line'),
+  title = list(text = 'Some Numbers'),
+  yAxis = list(
+    title = list(
+      text = '123456'
+    )
+  ),
+  series = list(
+    list(
+      name = '123',
+      data = c(1, 2, 3)
+    ),
+    list(
+      name = '456',
+      data = c(4, 5, 6)
+    )
+  )
+)
+
+hc_widget(options = options)
+```
+
+### Chart 4
+
+```{r}
+options = list(
+  chart = list(type = 'line'),
+  title = list(text = 'Some Numbers'),
+  yAxis = list(
+    title = list(
+      text = '123456'
+    )
+  ),
+  series = list(
+    list(
+      name = '123',
+      data = c(1, 2, 3)
+    ),
+    list(
+      name = '456',
+      data = c(4, 5, 6)
+    )
+  )
+)
+
+hc_widget(options = options)
+```
+
