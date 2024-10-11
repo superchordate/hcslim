@@ -30,6 +30,11 @@ dependencies:
    src: htmlwidgets/lib/modules/
    script: exporting.src.js
 
+ - name: variable-pie
+   version: 11.4.8
+   src: htmlwidgets/lib/modules/
+   script: variable-pie.js
+
 #  - name: highcharts-defaults
 #    version: 0.1
 #    src: htmlwidgets/lib/
