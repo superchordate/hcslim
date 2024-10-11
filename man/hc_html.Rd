@@ -10,7 +10,8 @@ hc_html(
   class = c("chart", "mapChart", "stockChart", "ganttChart"),
   loadmapfromurl = NULL,
   printjs = FALSE,
-  pretty = printjs,
+  copyjs = FALSE,
+  pretty = printjs || copyjs,
   for_widget = FALSE
 )
 }

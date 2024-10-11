@@ -22,7 +22,8 @@ hc_html = function(
   class = c('chart', 'mapChart', 'stockChart', 'ganttChart'),
   loadmapfromurl = NULL,
   printjs = FALSE, 
-  pretty = printjs,
+  copyjs = FALSE,
+  pretty = printjs || copyjs,
   for_widget = FALSE # special option for buiding an htmlwidget.
 ){
   
@@ -73,7 +74,8 @@ hc_html = function(
       html = js
     }
   }
-  if(printjs) print(js)
+  if(printjs) cat(js)
+  if(copyjs) ecopy(as.character(js))
   
   return(htmltools::HTML(as.character(html)))
 
